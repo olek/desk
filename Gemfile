@@ -24,6 +24,12 @@ gem 'interactive_editor'
 # Cute fun gem to brighten the day.
 gem 'cowsay'
 
+# Get support for OAuth
+gem 'oauth'
+
+# Better pretty printing in console
+gem 'awesome_print'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

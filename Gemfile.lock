@@ -28,6 +28,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    awesome_print (1.2.0)
     builder (3.2.2)
     cowsay (0.1.0)
     diff-lcs (1.2.5)
@@ -44,6 +45,7 @@ GEM
     mime-types (2.4.3)
     minitest (5.4.2)
     multi_json (1.10.1)
+    oauth (0.4.7)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -111,8 +113,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   cowsay
   interactive_editor
+  oauth
   rails (~> 4.1.6)
   rails_12factor
   rspec-rails
