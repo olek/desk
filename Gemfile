@@ -27,6 +27,11 @@ gem 'cowsay'
 # Get support for OAuth
 gem 'oauth'
 
+# Faraday is like rack, but for client.
+gem 'faraday'
+gem 'faraday_middleware'
+gem 'simple_oauth', '~>0.2.0' # faraday middleware requires old version of simple_oauth, duh
+
 # Better pretty printing in console
 gem 'awesome_print'
 

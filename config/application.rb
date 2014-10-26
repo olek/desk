@@ -28,6 +28,6 @@ module Desk
     # config.i18n.default_locale = :de
 
     # autoload gateways
-    config.autoload_paths += Dir["#{config.root}/app/gateways/**/"]
+    config.autoload_paths += Dir["#{config.root}/app/services/**/"]
   end
 end
