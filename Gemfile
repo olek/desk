@@ -21,6 +21,9 @@ gem 'rspec-rails'
 # emergency production fixes requiring to run longer ad-hoc ruby scripts.
 gem 'interactive_editor'
 
+# Cute fun gem to brighten the day.
+gem 'cowsay'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

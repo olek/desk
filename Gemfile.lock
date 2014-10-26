@@ -29,6 +29,7 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
+    cowsay (0.1.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     ffi (1.9.6)
@@ -110,6 +111,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cowsay
   interactive_editor
   rails (~> 4.1.6)
   rails_12factor
