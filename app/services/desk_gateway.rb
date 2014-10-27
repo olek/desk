@@ -5,60 +5,51 @@ class DeskGateway
   end
 
   def fetch_records(url, data = nil, conn_options = {})
-    if data.nil?
-      response = get(url, conn_options)
-    else
-      response = post(url, data, conn_options)
+    response = create_connection(conn_options).get do |req|
+      req.url url
     end
-
-    response_data = response.body
-    response_code = response.status
 
     if block_given?
-      yield(response_code, response_data)
+      yield(response.status, response.body)
     end
 
-    return response_data
+    response.body
   rescue => e
     logger.error("Failed to fetch desk records: #{e.class} (#{e.message})")
 
     raise e
   end
 
-  def send_data(url, data, conn_options = {})
-    response = create_connection(conn_options).post do |req|
-      req.url url
-
-      req.headers['Content-Type'] = 'application/json'
-      req.body = data.to_json
-    end
-
-    response_data = response.body
-    response_code = response.status
-
-    if block_given?
-      yield(response_code, response_data)
-    end
-
-    self
+  def post_data(url, data, conn_options = {})
+    send_data(:post, url, data, conn_options)
   end
 
-  def get(url, conn_options = {})
-    create_connection(conn_options).get do |req|
-      req.url url
-    end
-  end
-
-  def post(url, data, conn_options = {})
-    create_connection(conn_options).post do |req|
-      req.url url
-
-      req.headers['Content-Type'] = 'application/json'
-      req.body = data.to_json
-    end
+  def patch_data(url, data, conn_options = {})
+    send_data(:patch, url, data, conn_options)
   end
 
   private
+
+  def send_data(verb, url, data, conn_options = {})
+    fail unless [:post, :patch].include?(verb)
+
+    response = create_connection(conn_options).send(verb) do |req|
+      req.url url
+
+      req.headers['Content-Type'] = 'application/json'
+      req.body = data.to_json
+    end
+
+    if block_given?
+      yield(response.status, response.body)
+    end
+
+    response.body
+  rescue => e
+    logger.error("Failed to send data to desk: #{e.class} (#{e.message})")
+
+    raise e
+  end
 
   def create_connection(options={})
     Faraday.new(connection_options) do |builder|
