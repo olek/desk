@@ -17,3 +17,6 @@
 
 # Ignore gems installed locally by bundler
 vendor/bundle
+
+# ctags
+tags

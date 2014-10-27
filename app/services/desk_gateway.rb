@@ -1,4 +1,5 @@
-require "faraday/polite_logger"
+require_dependency "faraday/polite_logger"
+require_dependency "faraday/rate_limit_retry"
 
 class DeskGateway
   def initialize
@@ -58,6 +59,7 @@ class DeskGateway
       builder.use FaradayMiddleware::OAuth, oauth_options
 
       builder.use Faraday::Response::ParseJson unless options[:json] == false
+      builder.use Faraday::RateLimitRetry, logger # relies on RaiseError to raise ClientError, must be above it
       builder.use Faraday::Response::RaiseError
       builder.use FaradayMiddleware::FollowRedirects unless options[:follow_redirects] == false
 

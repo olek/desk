@@ -50,7 +50,6 @@ GEM
     minitest (5.4.2)
     multi_json (1.10.1)
     multipart-post (2.0.0)
-    oauth (0.4.7)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -124,7 +123,6 @@ DEPENDENCIES
   faraday
   faraday_middleware
   interactive_editor
-  oauth
   rails (~> 4.1.6)
   rails_12factor
   rspec-rails

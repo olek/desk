@@ -24,9 +24,6 @@ gem 'interactive_editor'
 # Cute fun gem to brighten the day.
 gem 'cowsay'
 
-# Get support for OAuth
-gem 'oauth'
-
 # Faraday is like rack, but for client.
 gem 'faraday'
 gem 'faraday_middleware'

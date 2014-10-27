@@ -10,18 +10,18 @@ module Faraday
     attr_accessor :logger
 
     def call(env)
-      logger.info(reference(env))
+      logger.info("#{reference(env)} - started")
       super
     end
 
     def on_complete(env)
-      logger.info("Status: #{env[:status]} for #{reference(env)}")
+      logger.info("#{reference(env)} - finished with status #{env.status}")
     end
 
     private
 
     def reference(env)
-      "#{env[:method]} #{env[:url].to_s}"
+      "#{env.method} #{env.url}"
     end
   end
 end
