@@ -1,5 +1,6 @@
-require_dependency "faraday/polite_logger"
-require_dependency "faraday/rate_limit_retry"
+require_dependency 'faraday/polite_logger'
+require_dependency 'faraday/rate_limit_retry'
+require_dependency 'faraday/etag_cache'
 
 class DeskGateway
   def initialize
@@ -59,8 +60,11 @@ class DeskGateway
       builder.use FaradayMiddleware::OAuth, oauth_options
 
       builder.use Faraday::Response::ParseJson unless options[:json] == false
+
+      builder.use Faraday::ETagCache, logger: logger, store: store
       builder.use Faraday::RateLimitRetry, logger # relies on RaiseError to raise ClientError, must be above it
       builder.use Faraday::Response::RaiseError
+
       builder.use FaradayMiddleware::FollowRedirects unless options[:follow_redirects] == false
 
       if ENV['DEBUG_HTTP'] =~ /true/i
@@ -103,5 +107,10 @@ class DeskGateway
 
   def logger
     @logger ||= Rails.logger
+  end
+
+  def store
+    # store is shared between all instances of this class
+    @@store ||= ActiveSupport::Cache::MemoryStore.new
   end
 end
