@@ -29,5 +29,9 @@ module Desk
 
     # autoload gateways
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
+
+    # enable console in production
+    # yes, that is a bad idea for real app, but will do OK for assignment to make server code runnable in browser.
+    config.middleware.use Rack::Webconsole
   end
 end
