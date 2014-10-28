@@ -32,6 +32,12 @@ class DeskService
     Label.new(data['name'], self_href(data))
   end
 
+  def delete_label(label)
+    gateway.delete(label.url)
+
+    true
+  end
+
   def assign_label(label, a_case)
     data = gateway.patch_data(
       a_case.url,
@@ -93,7 +99,23 @@ class DeskService
     @logger ||= Rails.logger
   end
 
-  Filter = Struct.new(:name, :url)
-  Case = Struct.new(:subject, :labels, :url)
-  Label = Struct.new(:name, :url)
+  module CleanStruct
+    def to_s
+      super.sub(/struct DeskService::/, '')
+    end
+
+    def inspect
+      super.sub(/struct DeskService::/, '')
+    end
+  end
+
+  Filter = Struct.new(:name, :url) do
+    include CleanStruct
+  end
+  Case = Struct.new(:subject, :labels, :url) do
+    include CleanStruct
+  end
+  Label = Struct.new(:name, :url) do
+    include CleanStruct
+  end
 end

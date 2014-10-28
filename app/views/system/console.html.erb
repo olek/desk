@@ -1,0 +1,49 @@
+<h2>
+  UI Placeholder
+</h2>
+<p>
+  Feel free to type your own ruby in the REPL once initial demo roll finishes.
+</p>
+<p>
+  Enjoy your discoveries :)
+</p>
+
+<script type="text/javascript">
+(function($) {
+  function simulate(text) {
+    $(text).each(function(i, v){
+      setTimeout(
+        function() {
+          $("#webconsole_query").val(v);
+          jQuery('#webconsole_query').trigger(jQuery.Event('keyup', {which: 13}));
+        },
+        i * 1000
+      );
+    });
+  };
+
+  $(document).ready(function() {
+    $("#rack-webconsole").slideToggle('fast', function() {
+      $("#rack-webconsole form input").focus();
+      $("#rack-webconsole .results_wrapper").scrollTop(
+        $("#rack-webconsole .results").height()
+      );
+      setTimeout(
+        function() {
+          simulate([
+            'ds = DeskService.new',
+            'filters = ds.fetch_filters',
+            'cases = ds.fetch_filtered_cases(filters.first)',
+            'new_label = ds.create_label("t1")',
+            'labels = ds.fetch_labels',
+            'test_label = labels.first { |o| o.name == "t1" }',
+            'ds.assign_label(test_label, cases.first)',
+            '"!nrut ruoY".reverse'
+          ]);
+        },
+        1000
+      );
+    });
+  });
+})(jQuery);
+</script>

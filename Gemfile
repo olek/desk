@@ -32,6 +32,9 @@ gem 'simple_oauth', '~>0.2.0' # faraday middleware requires old version of simpl
 # Better pretty printing in console
 gem 'awesome_print'
 
+# Joking substitute for the UI
+gem 'rack-webconsole'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

@@ -5,4 +5,7 @@ class SystemController < ApplicationController
       content_type: 'text/plain'
     )
   end
+
+  def console
+  end
 end

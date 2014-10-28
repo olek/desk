@@ -30,6 +30,31 @@ class DeskGateway
     send_data(:patch, url, data, conn_options)
   end
 
+  def delete(url, conn_options = {})
+    response = create_connection(conn_options).delete do |req|
+      req.url url
+    end
+
+    if response.status != 204
+      fail "Incorrect response #{response.status} to deleting #{url}."
+    end
+
+    if block_given?
+      yield(response.status, response.body)
+    end
+
+    response.status
+  rescue => e
+    logger.error("Failed to delete desk record: #{e.class} (#{e.message})")
+
+    raise e
+  end
+
+  # Details not needed.
+  def inspect
+    to_s
+  end
+
   private
 
   def send_data(verb, url, data, conn_options = {})
