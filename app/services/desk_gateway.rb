@@ -6,8 +6,8 @@ class DeskGateway
   def initialize
   end
 
-  def fetch_records(url, data = nil, conn_options = {})
-    response = create_connection(conn_options).get do |req|
+  def fetch_records(url)
+    response = create_connection.get do |req|
       req.url url
     end
 
@@ -22,16 +22,16 @@ class DeskGateway
     raise e
   end
 
-  def post_data(url, data, conn_options = {})
-    send_data(:post, url, data, conn_options)
+  def post_data(url, data)
+    send_data(:post, url, data)
   end
 
-  def patch_data(url, data, conn_options = {})
-    send_data(:patch, url, data, conn_options)
+  def patch_data(url, data)
+    send_data(:patch, url, data)
   end
 
-  def delete(url, conn_options = {})
-    response = create_connection(conn_options).delete do |req|
+  def delete(url)
+    response = create_connection.delete do |req|
       req.url url
     end
 
@@ -57,10 +57,10 @@ class DeskGateway
 
   private
 
-  def send_data(verb, url, data, conn_options = {})
+  def send_data(verb, url, data)
     fail unless [:post, :patch].include?(verb)
 
-    response = create_connection(conn_options).send(verb) do |req|
+    response = create_connection.send(verb) do |req|
       req.url url
 
       req.headers['Content-Type'] = 'application/json'

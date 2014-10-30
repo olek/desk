@@ -6,8 +6,8 @@ RSpec.describe SystemController, :type => :controller do
       get :healthcheck
     end
 
-    it 'tick tocks' do
-      expect(response.body).to eq "Tick-tock"
+    it 'contains expected message' do
+      expect(response.body).to include "Here!"
     end
 
     it "has a 200 status code" do

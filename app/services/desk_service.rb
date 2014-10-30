@@ -1,4 +1,8 @@
 class DeskService
+  def initialize(gateway = DeskGateway.new)
+    @gateway = gateway
+  end
+
   def fetch_filters
     fetch_collection('/api/v2/filters', 'filter') { |entry|
       Filter.new(entry['name'], self_href(entry))
@@ -54,6 +58,8 @@ class DeskService
     Case.new(data['subject'], data['labels'], self_href(data))
   end
 
+  attr_reader :gateway
+
   private
 
   def self_href(data)
@@ -89,10 +95,6 @@ class DeskService
       fail unless self_class(entry) == self_class
       yield(entry)
     }
-  end
-
-  def gateway
-    @gateway ||= DeskGateway.new
   end
 
   def logger
