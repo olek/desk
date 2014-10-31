@@ -34,7 +34,6 @@
             'ds = DeskService.new',
             'filters = ds.fetch_filters',
             'cases = ds.fetch_filtered_cases(filters.first)',
-            'new_label = ds.create_label("t1")',
             'labels = ds.fetch_labels',
             'test_label = labels.first { |o| o.name == "t1" }',
             'ds.assign_label(test_label, cases.first)',

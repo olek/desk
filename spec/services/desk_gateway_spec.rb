@@ -68,6 +68,4 @@ RSpec.describe DeskGateway do
       }.to raise_error Faraday::ClientError
     end
   end
-
-  # TODO if I had more time, it would be beneficial to write more tests of the gateway
 end
